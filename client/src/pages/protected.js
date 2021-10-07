@@ -16,4 +16,12 @@ const ProtectedPage = () => {
   );
 };
 
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: true,
+    },
+  };
+}
+
 export default ProtectedPage;

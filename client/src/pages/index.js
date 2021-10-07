@@ -17,4 +17,12 @@ const Index = () => {
   );
 };
 
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: false,
+    },
+  };
+}
+
 export default Index;

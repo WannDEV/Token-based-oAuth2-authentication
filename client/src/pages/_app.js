@@ -1,11 +1,10 @@
 import { AuthProvider } from "../shared/context/auth";
-import Router from "next/router";
 import ProtectRoute from "../routes/ProtectRoutes";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <ProtectRoute>
+      <ProtectRoute pageProps={pageProps}>
         <Component {...pageProps} />
       </ProtectRoute>
     </AuthProvider>

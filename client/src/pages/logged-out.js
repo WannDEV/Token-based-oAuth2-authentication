@@ -11,4 +11,12 @@ const LoggedOutPage = () => {
   );
 };
 
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: false,
+    },
+  };
+}
+
 export default LoggedOutPage;
