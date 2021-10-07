@@ -18,6 +18,8 @@ export const AuthProvider = ({ children }) => {
         const { data: user } = await api.get("users/me");
         console.log(user);
         if (user) setUser(user);
+      } else {
+        setUser(null);
       }
       setLoading(false);
     }
