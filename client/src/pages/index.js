@@ -13,6 +13,8 @@ const Index = () => {
       <Login />
       <TestButton />
       <p>{isAuthenticated ? user.name : "Not signed in"}</p>
+      <p>Login status: {toString(isAuthenticated)}</p>
+      <p>User role: {isAuthenticated ? user.role : "Not signed in"}</p>
     </div>
   );
 };
@@ -21,6 +23,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: false,
+      userTypes: ["user", "admin"],
     },
   };
 }

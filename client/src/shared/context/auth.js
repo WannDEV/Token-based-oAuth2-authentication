@@ -9,6 +9,8 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState("user");
 
   useEffect(() => {
     async function loadUserFromCookies() {
@@ -17,9 +19,14 @@ export const AuthProvider = ({ children }) => {
         console.log("useEffect");
         const { data: user } = await api.get("users/me");
         console.log(user);
-        if (user) setUser(user);
+        if (user) {
+          if (user["role"] != "user") setRole(user["role"]);
+          setUser(user);
+          setIsAuthenticated(true);
+        }
       } else {
         setUser(null);
+        setIsAuthenticated(false);
       }
       setLoading(false);
     }
@@ -27,7 +34,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (user) => {
+    if (user["role"] != "user") setRole(user["role"]);
     setUser(user);
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
@@ -38,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         method: "POST",
         url: "oauth/google/logout",
       });
+      setIsAuthenticated(false);
       Router.push("/logged-out");
     } catch (err) {
       console.log(err);
@@ -46,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, loading, login, logout }}
+      value={{ isAuthenticated, user, loading, role, login, logout }}
     >
       {children}
     </AuthContext.Provider>

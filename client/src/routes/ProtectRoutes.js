@@ -2,7 +2,7 @@ import { useAuth } from "../shared/context/auth";
 import Router from "next/router";
 
 const ProtectRoute = ({ children, pageProps }) => {
-  const { user, loading } = useAuth();
+  const { user, loading, role } = useAuth();
 
   if (loading) {
     return (
@@ -16,6 +16,10 @@ const ProtectRoute = ({ children, pageProps }) => {
     Router.push("/");
     return <div></div>;
   } else {
+    if (pageProps.userTypes && pageProps.userTypes.indexOf(role) === -1) {
+      Router.push("/");
+      return <div></div>;
+    }
     return children;
   }
 };
