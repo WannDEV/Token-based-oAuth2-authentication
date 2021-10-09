@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import useSWR from "swr";
-import Skeleton from "react-loading-skeleton";
+import ContentLoader from "react-content-loader";
 
 import TestButton from "../components/TestButton";
 import { useAuth } from "../shared/context/auth";
@@ -26,7 +26,11 @@ const ProtectedPage = () => {
       <TestButton />
       <Logout />
       {!showSkeleton && data.data.message}
-      {showSkeleton && <Skeleton height={40} count={5} />}
+      {showSkeleton && (
+        <ContentLoader>
+          <rect y="10" rx="3" ry="3" width="1000" height="20" />
+        </ContentLoader>
+      )}
     </div>
   );
 };
