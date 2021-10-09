@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 
 import api from "../../services/api";
 
@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
         method: "POST",
         url: "oauth/google/logout",
       });
+      Router.push("/logged-out");
     } catch (err) {
       console.log(err);
     }
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, loading, login }}
+      value={{ isAuthenticated: !!user, user, loading, login, logout }}
     >
       {children}
     </AuthContext.Provider>

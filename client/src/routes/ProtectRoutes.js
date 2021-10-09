@@ -1,11 +1,10 @@
 import { useAuth } from "../shared/context/auth";
-import { useState, useEffect } from "react";
+import Router from "next/router";
 
 const ProtectRoute = ({ children, pageProps }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  if (pageProps.protected && !user) {
-    console.log("Pageprops statement was executed");
+  if (loading) {
     return (
       <div>
         <h1>Loading...</h1>
@@ -13,7 +12,12 @@ const ProtectRoute = ({ children, pageProps }) => {
     );
   }
 
-  return children;
+  if (pageProps.protected && !user) {
+    Router.push("/");
+    return <div></div>;
+  } else {
+    return children;
+  }
 };
 
 export default ProtectRoute;
