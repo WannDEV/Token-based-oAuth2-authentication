@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     googleId: DataTypes.STRING,
     provider: DataTypes.STRING,
     locale: DataTypes.STRING,
-    picture: DataTypes.STRING
+    picture: DataTypes.STRING,
+    role: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

@@ -9,6 +9,7 @@ config();
 const getProfile = (profile) => {
   const { id, displayName, emails, provider, _json } = profile;
   const { locale, picture } = _json;
+  const deafultRole = "user";
 
   if (emails?.length) {
     const email = emails[0].value;
@@ -19,6 +20,7 @@ const getProfile = (profile) => {
       provider,
       locale,
       picture,
+      role: deafultRole,
     };
   }
   return null;

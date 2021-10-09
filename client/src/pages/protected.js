@@ -5,9 +5,10 @@ import Skeleton from "react-loading-skeleton";
 import TestButton from "../components/TestButton";
 import { useAuth } from "../shared/context/auth";
 import api from "../services/api";
+import Logout from "../components/logout";
 
 const ProtectedPage = () => {
-  const { logout, user, loading } = useAuth();
+  const { loading } = useAuth();
   const { data, isValidating } = useSWR(
     loading ? false : "/testfetch",
     api.get
@@ -23,7 +24,7 @@ const ProtectedPage = () => {
     <div>
       <h1>This is a protected page</h1>
       <TestButton />
-      <button onClick={logout}>Logout</button>
+      <Logout />
       {!showSkeleton && data.data.message}
       {showSkeleton && <Skeleton height={40} count={5} />}
     </div>
@@ -34,7 +35,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: true,
-      userTypes: ["user", "admin"],
+      userTypes: ["user", "admin", "unassigned"],
     },
   };
 }

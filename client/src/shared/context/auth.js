@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("unassigned");
 
   useEffect(() => {
     async function loadUserFromCookies() {
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (user) => {
-    if (user["role"] != "user") setRole(user["role"]);
+    if (user["role"] != "unassigned") setRole(user["role"]);
     setUser(user);
     setIsAuthenticated(true);
   };
@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }) => {
         url: "oauth/google/logout",
       });
       setIsAuthenticated(false);
+      setRole("user");
       Router.push("/logged-out");
     } catch (err) {
       console.log(err);

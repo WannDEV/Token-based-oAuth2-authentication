@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./login";
+import Login from "../components/login";
 
 const LoggedOutPage = () => {
   return (
@@ -15,7 +15,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: false,
-      userTypes: ["user", "admin"],
+      userTypes: ["user", "admin", "unassigned"],
     },
   };
 }
