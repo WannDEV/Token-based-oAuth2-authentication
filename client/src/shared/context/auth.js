@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       const accessToken = Cookies.get("accessToken");
       if (!!accessToken && user == null) {
         console.log("useEffect");
-        const { data: user } = await api.get("users/me");
+        const { data: user } = await api.get("oauth/users/me");
         console.log(user);
         if (user) {
           if (user["role"] != "user") setRole(user["role"]);

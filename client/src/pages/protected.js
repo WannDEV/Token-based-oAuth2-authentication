@@ -10,7 +10,7 @@ import Logout from "../components/logout";
 const ProtectedPage = () => {
   const { loading } = useAuth();
   const { data, isValidating } = useSWR(
-    loading ? false : "/testfetch",
+    loading ? false : "/test/testfetch",
     api.get
   );
 
