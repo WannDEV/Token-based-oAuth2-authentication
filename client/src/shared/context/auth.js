@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         setUser(null);
         setIsAuthenticated(false);
+        setRole("unassigned");
       }
       setLoading(false);
     }
@@ -48,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         url: "oauth/google/logout",
       });
       setIsAuthenticated(false);
-      setRole("user");
+      setRole("unassigned");
       Router.push("/logged-out");
     } catch (err) {
       console.log(err);
