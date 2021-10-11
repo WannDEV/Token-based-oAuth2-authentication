@@ -53,7 +53,7 @@ const AuthController = {
   },
   async logout(req, res, next) {
     res.clearCookie("refreshToken");
-    return res.status(200);
+    return res.sendStatus(200);
   },
   async getUser(req, res, next) {
     var decoded = jwt.decode(req.cookies.accessToken);
