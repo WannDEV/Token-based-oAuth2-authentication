@@ -37,6 +37,9 @@ yarn-error.log*
 # notes
 /notes
 
+# test files for local dev
+/test
+
 # node
 package-lock.json
 yarn.lock

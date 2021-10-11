@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { User } from "../db/models";
+import User from "../db/models/user";
 import HttpError from "../models/http-error";
 
 const AuthController = {
@@ -8,7 +8,7 @@ const AuthController = {
       return res.status(401).send({ error: "User was not authenticated" });
     }
     const { email } = req.user;
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ email });
     const accessToken = jwt.sign(
       { id: user.id },
       process.env.JWT_SECRET_ACCESS_TOKEN,
@@ -53,13 +53,16 @@ const AuthController = {
   },
   async logout(req, res, next) {
     res.clearCookie("refreshToken");
-    return res.status(200);
+    console.log(
+      `logout method: ${req.cookies.accessToken}, ${req.cookies.refreshToken}`
+    );
+    return res.sendStatus(200);
   },
   async getUser(req, res, next) {
     var decoded = jwt.decode(req.cookies.accessToken);
     const id = decoded.id;
 
-    const user = await User.findOne({ where: { id } });
+    const user = await User.findOne({ id });
 
     if (user) {
       return res.status(200).send(user);

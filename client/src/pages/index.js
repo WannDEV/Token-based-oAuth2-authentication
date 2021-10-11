@@ -5,7 +5,7 @@ import TestButton from "../components/TestButton";
 import { useAuth } from "../shared/context/auth";
 
 const Index = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, role } = useAuth();
   console.log(user);
   console.log(isAuthenticated);
   return (
@@ -15,7 +15,7 @@ const Index = () => {
       <TestButton />
       <p>{isAuthenticated ? user.name : "Not signed in"}</p>
       <p>Login status: {isAuthenticated ? "Signed in" : "Not signed in"}</p>
-      <p>User role: {isAuthenticated ? user.role : "Not signed in"}</p>
+      <p>User role: {role}</p>
     </div>
   );
 };

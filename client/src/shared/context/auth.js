@@ -44,12 +44,12 @@ export const AuthProvider = ({ children }) => {
     try {
       Cookies.remove("accessToken");
       setUser(null);
+      setIsAuthenticated(false);
+      setRole("unassigned");
       api({
         method: "POST",
         url: "oauth/google/logout",
       });
-      setIsAuthenticated(false);
-      setRole("unassigned");
       Router.push("/logged-out");
     } catch (err) {
       console.log(err);
